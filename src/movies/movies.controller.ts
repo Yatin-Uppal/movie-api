@@ -65,7 +65,7 @@ export class MoviesController {
     console.log(list)
     let promise = list.map((val) => {
       return new Promise(async (resolve) => {
-        const signedUrl = await this.commonService.generatePresignedUrl(val.image_url)
+        const signedUrl = await this.commonService.generateUrl(val.image_url)
         console.log(signedUrl)
         resolve({...val, image_url: signedUrl})
       })
@@ -83,7 +83,7 @@ export class MoviesController {
     if(!movie) {
       throw new BadRequestException("Movie not found")
     }
-    const signedUrl = await this.commonService.generatePresignedUrl(movie.image_url)
+    const signedUrl = await this.commonService.generateUrl(movie.image_url)
     return this.commonService.customSuccessResponse({...movie, image_url: signedUrl}, "Movie successfully fetched!", 200)
   }
 

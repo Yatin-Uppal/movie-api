@@ -44,17 +44,9 @@ export class CommonService {
     return s3Response;
   }
 
-  async generatePresignedUrl(objectKey) {
-    // Define the parameters for generating the pre-signed URL
-    const params = {
-      Bucket: this.AWS_S3_BUCKET,
-      Key: `${objectKey}`,
-      Expires: 172800, // URL expiration time in seconds
-    };
-  
-    // Generate the pre-signed URL
-    const url = this.s3.getSignedUrl('getObject', params);
-  
+  async generateUrl(objectKey) {
+    // Construct the URL without signing
+    const url = `https://${this.AWS_S3_BUCKET}.s3.amazonaws.com/${objectKey}`;
     return url;
   }
 
